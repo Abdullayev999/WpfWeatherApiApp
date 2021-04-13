@@ -1,0 +1,22 @@
+﻿<Application x:Class="WpfNavigationApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfNavigationApp" 
+             xmlns:views="clr-namespace:WpfNavigationApp.Views"
+             xmlns:viewModels="clr-namespace:WpfNavigationApp.ViewModels" >
+    <!--StartupUri="MainWindow.xaml"-->
+    <Application.Resources>
+
+        <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+            <views:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:DetailViewModel}">
+            <views:DetailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:AddViewModel}">
+            <views:AddView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>

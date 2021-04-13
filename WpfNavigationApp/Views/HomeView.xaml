@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="WpfNavigationApp.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:WpfNavigationApp.Views" xmlns:beh="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             Name="homeWindow"
+             d:DesignHeight="350" FontSize="20" Margin="3" d:DesignWidth="600" Background="White">
+
+    <DockPanel >
+        <TextBlock Text="Home" FontWeight="Black" DockPanel.Dock="Top" FontSize="25" TextAlignment="Center"/>
+        <UniformGrid DockPanel.Dock="Bottom" Columns="2">
+            <Button Command="{Binding AddCommand}">Add</Button>
+            <Button CommandParameter="{Binding SelectedItem , ElementName=ForecastListBox}" Command="{Binding RemoveCommand}">Remove</Button>
+        </UniformGrid>
+
+        <ListBox SelectedItem="{Binding SelectedForecast}" x:Name="ForecastListBox" ItemsSource="{Binding Forecasts}" HorizontalContentAlignment="Stretch">
+            <beh:Interaction.Triggers>
+                <beh:EventTrigger EventName="MouseDoubleClick">
+                    <beh:InvokeCommandAction CommandParameter="{Binding ElementName=ForecastListBox , Path=SelectedItem}" Command="{Binding DetailsCommand}">
+                        
+                    </beh:InvokeCommandAction>
+                </beh:EventTrigger>
+            </beh:Interaction.Triggers>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel LastChildFill="False"  >
+                        <Button CommandParameter="{Binding}" Command="{Binding ElementName=homeWindow , Path=DataContext.DetailsCommand}"  BorderThickness="2" DockPanel.Dock="Left">👁</Button>
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding Name}"/>
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding Main.Temperature , StringFormat= {}{0} ℃}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+
+
+
+
+</UserControl>

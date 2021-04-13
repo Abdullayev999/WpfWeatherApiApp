@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="WpfNavigationApp.Views.AddView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfNavigationApp.Views" xmlns:map="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" BorderThickness="1" BorderBrush="Black" d:DesignWidth="350" FontSize="20" Margin="3" Background="White" >
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Add new location" TextAlignment="Center"/>
+       
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+            <Button Command="{Binding OkCommand}">Ok</Button>
+            <Button Command="{Binding CancelCommand}">Cancle</Button>
+        </UniformGrid>
+
+        <StackPanel Margin="10" DockPanel.Dock="Top">
+            <RadioButton x:Name="CityRadionButton" IsChecked="{Binding FingByName}" Margin="0,20" Content="Find by city name" VerticalContentAlignment="Center" />
+
+            <TextBlock  Text="City name:"/>
+            <TextBox x:Name="CityNameTextBox" BorderBrush="Black" BorderThickness="2" Text="{Binding CityName , UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding FingByName}"></TextBox>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent , ElementName=CityNameTextBox}" FontSize="10" Foreground="Red"/>
+
+            <RadioButton x:Name="FindByRadionButton" IsChecked="{Binding FingByGeo}" Margin="0,20" Content="Find by geolocation" VerticalContentAlignment="Center" />
+            <TextBlock  Text="Latitude:"/>
+            <TextBox x:Name="LatitudeTextBlock" BorderBrush="Black"   BorderThickness="2" Text="{Binding Longitude , UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding FingByGeo}" ></TextBox>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent , ElementName=LatitudeTextBlock}" FontSize="10" Foreground="Red"/>
+
+            <TextBlock  Text="Longitude:"/>
+            <TextBox x:Name="LongitudeTextBlock" BorderBrush="Black"  BorderThickness="2" Text="{Binding Latitude , UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding FingByGeo}"></TextBox>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent , ElementName=LongitudeTextBlock}" FontSize="10" Foreground="Red"/>
+
+        </StackPanel>
+
+        <map:Map MouseRightButtonDown="MyMap_MouseRightButtonDown" IsEnabled="{Binding FingByGeo}" Margin="1" Name="MyMap" Grid.Row="1"  ZoomLevel="1"  Language="ru"  Grid.ColumnSpan="2"
+                      CredentialsProvider="AtPkRgKEb7g9oUtuzm1wBZBUZBvK9ZHBJhG5EDLcsEmyM6e9684XLflcWtzOBCRW" 
+                      BorderBrush="Black" BorderThickness="2">
+            <!--<map:Pushpin Location="{Binding Location}"/>-->
+
+        </map:Map>
+    </DockPanel>
+</UserControl>
